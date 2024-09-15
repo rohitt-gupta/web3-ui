@@ -17,6 +17,7 @@ import { useState } from "react";
 import ViewRoutes from "./ViewRoutes";
 import { sfPro } from "@/fonts";
 import { motion } from "framer-motion";
+import { CSSTransition } from 'react-transition-group';
 
 export default function SwapComponent() {
   const [fromCurrency, setFromCurrency] = useState("ETH");
@@ -25,11 +26,11 @@ export default function SwapComponent() {
   const [showRoutes, setShowRoutes] = useState(false);
 
   return (
-    <div className="flex flex-row gap-4">
+    <div className="flex justify-center items-start gap-4 h-1/2">
       <motion.div
         initial={{ x: 0 }}
         animate={{ x: showRoutes ? -20 : 0 }}
-        transition={{ duration: 0.8, ease: "linear" }}
+        transition={{ duration: 0.3, ease: "linear" }}
       >
         <Card className="shadow-md mx-auto border-none w-full">
           <CardHeader className="flex flex-row justify-between items-center space-y-0 py-4 pb-2">
@@ -172,17 +173,17 @@ export default function SwapComponent() {
           </div>
         </div>
       </motion.div>
-      <motion.div
-        initial={{ opacity: 0, x: 100 }}
-        exit={{ opacity: 0, x: 100 }}
-        animate={{ opacity: showRoutes ? 1 : 0, x: showRoutes ? 0 : 100 }}
-        transition={{ duration: 0.8, ease: "linear" }}
-        className="flex justify-center items-start"
+      <CSSTransition
+        in={showRoutes}
+        timeout={300}
+        classNames="routes-transition"
+        unmountOnExit
+
       >
-        {showRoutes && (
+        <div className="flex justify-center items-start">
           <ViewRoutes onClose={() => setShowRoutes(false)} />
-        )}
-      </motion.div>
+        </div>
+      </CSSTransition>
     </div>
   );
 }

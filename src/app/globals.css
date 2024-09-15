@@ -100,3 +100,26 @@ body {
   font-weight: normal;
   font-style: normal;
 }
+
+
+.routes-transition-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.routes-transition-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.routes-transition-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.routes-transition-exit-active {
+  opacity: 0;
+  transform: translateX(100%);
+  transition: opacity 300ms, transform 300ms;
+}
