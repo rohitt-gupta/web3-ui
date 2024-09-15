@@ -11,6 +11,7 @@ import {
 import { Fuel, Swapr } from "@/icons";
 import { ChevronsLeft } from "lucide-react";
 import { sfPro } from "@/fonts";
+import { cn } from "@/lib/utils";
 const routes = [
   {
     name: "Swapr",
@@ -19,6 +20,7 @@ const routes = [
     fee: "-0.23%",
     fuel: "$24,24",
     best: true,
+    selected: true,
   },
   {
     name: "Cowswap",
@@ -26,6 +28,7 @@ const routes = [
     value: "84.4335 USDC",
     fee: "-0.23%",
     fuel: "$24,24",
+    selected: false,
   },
   {
     name: "Paraswap",
@@ -33,6 +36,7 @@ const routes = [
     value: "84.4335 USDC",
     fee: "-0.23%",
     fuel: "$24,24",
+    selected: false,
   },
   {
     name: "Enso",
@@ -40,6 +44,7 @@ const routes = [
     value: "84.4335 USDC",
     fee: "-0.23%",
     fuel: "$24,24",
+    selected: false,
   },
   {
     name: "1inch",
@@ -47,6 +52,7 @@ const routes = [
     value: "84.4335 USDC",
     fee: "-0.23%",
     fuel: "$24,24",
+    selected: false,
   },
   {
     name: "OpenOcean",
@@ -54,6 +60,7 @@ const routes = [
     value: "84.4335 USDC",
     fee: "-0.23%",
     fuel: "$24,24",
+    selected: false,
   },
   {
     name: "0x",
@@ -61,6 +68,7 @@ const routes = [
     value: "83.4335 USDC",
     fee: "-0.23%",
     fuel: "$24,24",
+    selected: false,
   },
 ];
 
@@ -81,11 +89,11 @@ const ViewRoutes = ({ onClose }: { onClose: () => void }) => {
       <p className="p-4 font-semibold text-lightFont text-xs">
         Best route is selected based on net output after gas fees.
       </p>
-      <CardContent>
+      <CardContent className="">
         {routes.map((route, index) => (
           <div
             key={index}
-            className="flex justify-between items-center gap-20 py-4"
+            className={cn("flex justify-between items-center gap-20 p-4 hover:bg-gray-100 rounded-2xl", route.selected ? "border-2 border-green-500" : "")}
           >
             <div className="flex items-center gap-2">
               <div className="flex justify-center items-center rounded-full w-10 h-10">

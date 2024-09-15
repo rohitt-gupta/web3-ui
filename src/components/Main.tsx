@@ -16,6 +16,7 @@ import { ChevronDown, ChevronsRight, MoveRight, Settings2 } from "lucide-react";
 import { useState } from "react";
 import ViewRoutes from "./ViewRoutes";
 import { sfPro } from "@/fonts";
+import { motion } from "framer-motion";
 
 export default function SwapComponent() {
   const [fromCurrency, setFromCurrency] = useState("ETH");
@@ -25,7 +26,11 @@ export default function SwapComponent() {
 
   return (
     <div className="flex flex-row gap-4">
-      <div>
+      <motion.div
+        initial={{ x: 0 }}
+        animate={{ x: showRoutes ? -20 : 0 }}
+        transition={{ duration: 0.8, ease: "linear" }}
+      >
         <Card className="shadow-md mx-auto border-none w-full">
           <CardHeader className="flex flex-row justify-between items-center space-y-0 py-4 pb-2">
             <CardTitle className={`font-semibold text-base ${sfPro.className}`}>Swap</CardTitle>
@@ -166,12 +171,18 @@ export default function SwapComponent() {
             View all routes <ChevronsRight className="w-3 h-3" />
           </div>
         </div>
-      </div>
-      {showRoutes && (
-        <div className="flex justify-center items-start transition-all duration-100">
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, x: 100 }}
+        exit={{ opacity: 0, x: 100 }}
+        animate={{ opacity: showRoutes ? 1 : 0, x: showRoutes ? 0 : 100 }}
+        transition={{ duration: 0.8, ease: "linear" }}
+        className="flex justify-center items-start"
+      >
+        {showRoutes && (
           <ViewRoutes onClose={() => setShowRoutes(false)} />
-        </div>
-      )}
+        )}
+      </motion.div>
     </div>
   );
 }
