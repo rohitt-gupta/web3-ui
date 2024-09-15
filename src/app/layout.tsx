@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import { manrope } from "@/fonts";
+import { Toaster } from "sonner";
 
 
 
@@ -23,6 +24,7 @@ export default function RootLayout({
         <Navbar />
         {children}
       </body>
+      <Toaster duration={2000} />
     </html>
   );
 }
