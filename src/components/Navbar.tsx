@@ -6,10 +6,11 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-} from "@radix-ui/react-select";
-import { Activity, ChevronDown, Settings, Menu, X } from "lucide-react";
+} from "@/components/ui/select";
+import { Activity, ChevronDown, Settings, Menu, X, Bitcoin } from "lucide-react";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import { cn } from "@/lib/utils";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,71 +20,48 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="top-0 left-0 z-50 absolute bg-white shadow-sm p-4 w-full text-black">
+    <nav className="top-0 left-0 z-50 fixed bg-white shadow-sm p-4 w-full text-black">
       <div className="mx-auto container">
         <div className="flex justify-between items-center">
           {/* Left links for medium and large screens */}
           <div className="md:flex space-x-4 hidden">
-            <Link href="#" className="hover:text-gray-400">
-              Swap
-            </Link>
-            <Link href="#" className="hover:text-gray-400">
-              Bridge
-            </Link>
-            <Link href="#" className="hover:text-gray-400">
-              Pool
-            </Link>
-            <Link href="#" className="hover:text-gray-400">
-              Products
-            </Link>
+            {['Swap', 'Bridge', 'Pool', 'Products'].map((item) => (
+              <Link key={item} href="#" className={cn("hover:bg-gray-100 p-2 px-4 text-sm font-medium rounded-lg transition-all", item === "Swap" ? "bg-gray-100 " : "")}>
+                {item}
+              </Link>
+            ))}
           </div>
 
-          {/* Right selects (dropdowns) for large screens */}
-          <div className="lg:flex items-center space-x-4 hidden">
-            <Activity className="bg-gray-100 p-2 rounded-lg w-8 h-8" />
+          <div className="lg:flex justify-center items-center space-x-4 hidden">
+            <Activity className="bg-gray-100 p-2 rounded-lg w-8 min-w-fit h-8" />
             <SelectDropdown label="Eth" icon={<Eth />} />
-            <div className="flex justify-between items-center gap-2 bg-gray-100 p-1 rounded-full">
-              <Button className="flex gap-1 bg-gray-100 shadow-none px-2 p-0 rounded-full h-7 text-gray-500">
+            <div className="flex justify-between items-center gap-2 bg-gray-100 px-2 p-1 rounded-full">
+              <Button className="flex gap-1 bg-gray-100 hover:bg-gray-100/50 shadow-none px-2 p-0 rounded-full h-7 text-gray-500">
                 <Metamask />
                 <span className="sm:inline hidden">2.3 Eth</span>
               </Button>
-              <Button className="flex gap-1 bg-white shadow-none px-2 p-0 rounded-full h-7">
+              <Button className="flex gap-1 bg-white hover:bg-gray-100 shadow-none px-2 py-0 rounded-full h-7">
                 <Profile />
                 <span className="sm:inline hidden">0x70..4c3d</span>
                 <ChevronDown size={18} />
               </Button>
             </div>
-            <Settings className="bg-gray-100 p-2 rounded-lg w-8 h-8" />
+            <Settings className="bg-gray-100 p-2 rounded-lg w-8 min-w-fit h-8" />
           </div>
 
-          {/* Hamburger menu for small and medium screens */}
-          <div className="lg:hidden">
-            <button onClick={toggleMenu} className="focus:outline-none">
-              {isOpen ? (
-                <X className="w-6 h-6" />
-              ) : (
-                <Menu className="w-6 h-6" />
-              )}
-            </button>
-          </div>
+          <button onClick={toggleMenu} className="lg:hidden focus:outline-none">
+            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
 
-        {/* Mobile and tablet menu */}
         {isOpen && (
           <div className="lg:hidden mt-4">
             <div className="flex flex-col space-y-4">
-              <Link href="#" className="hover:text-gray-400">
-                Swap
-              </Link>
-              <Link href="#" className="hover:text-gray-400">
-                Bridge
-              </Link>
-              <Link href="#" className="hover:text-gray-400">
-                Pool
-              </Link>
-              <Link href="#" className="hover:text-gray-400">
-                Products
-              </Link>
+              {['Swap', 'Bridge', 'Pool', 'Products'].map((item) => (
+                <Link key={item} href="#" className="hover:text-gray-400">
+                  {item}
+                </Link>
+              ))}
               <div className="flex flex-col space-y-2">
                 <div className="flex items-center gap-2">
                   <Activity className="bg-gray-100 p-2 rounded-lg w-8 h-8" />
@@ -93,11 +71,11 @@ const Navbar = () => {
                 <div className="flex justify-between items-center gap-2 bg-gray-100 p-1 rounded-full">
                   <Button className="flex gap-1 bg-gray-100 shadow-none px-2 p-0 rounded-full h-7 text-gray-500">
                     <Metamask />
-                    <span className="inline">2.3 Eth</span>
+                    <span>2.3 Eth</span>
                   </Button>
                   <Button className="flex gap-1 bg-white shadow-none px-2 p-0 rounded-full h-7">
                     <Profile />
-                    <span className="inline">0x70..4c3d</span>
+                    <span>0x70..4c3d</span>
                     <ChevronDown size={18} />
                   </Button>
                 </div>
@@ -110,7 +88,6 @@ const Navbar = () => {
   );
 };
 
-// SelectDropdown component using shadcn's Select
 const SelectDropdown = ({
   label,
   icon,
@@ -120,24 +97,28 @@ const SelectDropdown = ({
 }) => (
   <Select>
     <SelectTrigger className="flex items-center gap-1 bg-gray-100 px-2 rounded-lg h-8 hover:text-gray-400">
-      <span className="flex items-center gap-1">
-        {icon}
-        {label}
-      </span>
-      <ChevronDown className="w-4 h-4" />
+      <div className="flex justify-center items-center gap-2">
+        <span className="w-4 h-4">{icon}</span>
+        <span>{label}</span>
+      </div>
     </SelectTrigger>
     <SelectContent className="bg-white shadow-lg p-2 rounded-md text-gray-800">
-      <SelectItem value="option1" className="hover:bg-gray-100 p-2">
-        Option 1
-      </SelectItem>
-      <SelectItem value="option2" className="hover:bg-gray-100 p-2">
-        Option 2
-      </SelectItem>
-      <SelectItem value="option3" className="hover:bg-gray-100 p-2">
-        Option 3
-      </SelectItem>
+      {[
+        { value: 'ethereum', name: 'Ethereum', Icon: Eth },
+        { value: 'bitcoin', name: 'Bitcoin', Icon: Bitcoin },
+        { value: 'litecoin', name: 'Litecoin', Icon: Eth },
+        { value: 'ripple', name: 'Ripple', Icon: Eth },
+        { value: 'dogecoin', name: 'Dogecoin', Icon: Eth }
+      ].map(({ value, name, Icon }) => (
+        <SelectItem key={value} value={value} className="hover:bg-gray-100 p-2">
+          <span className="flex justify-center items-center gap-2">
+            <span className="w-4 h-4"><Icon /></span>
+            <span>{name}</span>
+          </span>
+        </SelectItem>
+      ))}
     </SelectContent>
-  </Select>
+  </Select >
 );
 
 export default Navbar;
