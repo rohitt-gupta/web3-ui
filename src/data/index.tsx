@@ -1,0 +1,68 @@
+import { Swapr } from "@/icons";
+import {
+  CowSwap,
+  Enso,
+  OneInch,
+  OpenOcean,
+  Paraswap,
+  ZeroX,
+} from "@/icons/coins";
+export const routes = [
+  {
+    name: "Swapr",
+    icon: <Swapr />,
+    value: "84.4335 USDC",
+    fee: "-0.23%",
+    fuel: "$24,24",
+    best: true,
+    selected: true,
+  },
+  {
+    name: "Cowswap",
+    icon: <CowSwap />,
+    value: "84.4335 USDC",
+    fee: "-0.23%",
+    fuel: "$24,24",
+    selected: false,
+  },
+  {
+    name: "Paraswap",
+    icon: <Paraswap />,
+    value: "84.4335 USDC",
+    fee: "-0.23%",
+    fuel: "$24,24",
+    selected: false,
+  },
+  {
+    name: "Enso",
+    icon: <Enso />,
+    value: "84.4335 USDC",
+    fee: "-0.23%",
+    fuel: "$24,24",
+    selected: false,
+  },
+  {
+    name: "1inch",
+    icon: <OneInch />,
+    value: "84.4335 USDC",
+    fee: "-0.23%",
+    fuel: "$24,24",
+    selected: false,
+  },
+  {
+    name: "OpenOcean",
+    icon: <OpenOcean />,
+    value: "84.4335 USDC",
+    fee: "-0.23%",
+    fuel: "$24,24",
+    selected: false,
+  },
+  {
+    name: "0x",
+    icon: <ZeroX />,
+    value: "83.4335 USDC",
+    fee: "-0.23%",
+    fuel: "$24,24",
+    selected: false,
+  },
+];

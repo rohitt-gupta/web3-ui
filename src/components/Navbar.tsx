@@ -23,7 +23,6 @@ const Navbar = () => {
     <nav className="top-0 left-0 z-50 fixed bg-white shadow-sm p-4 w-full text-black">
       <div className="mx-auto container">
         <div className="flex justify-between items-center">
-          {/* Left links for medium and large screens */}
           <div className="md:flex space-x-4 hidden">
             {['Swap', 'Bridge', 'Pool', 'Products'].map((item) => (
               <Link key={item} href="#" className={cn("hover:bg-gray-100 p-2 px-4 text-sm font-medium rounded-lg transition-all", item === "Swap" ? "bg-gray-100 " : "")}>
